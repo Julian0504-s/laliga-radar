@@ -39,7 +39,8 @@ self.addEventListener('fetch', e => {
 
   if (url.origin === self.location.origin) {
     e.respondWith(
-      fetch(req).then(res => {
+      // 'no-cache' revalidates with the server, so a new app version shows up right away.
+      fetch(req, { cache: 'no-cache' }).then(res => {
         if (res.ok) {
           const copy = res.clone();
           caches.open(CACHE).then(c => c.put(req, copy));
@@ -79,7 +80,8 @@ async function backgroundCheck() {
   const day = d => d.toISOString().slice(0, 10).replace(/-/g, '');
   const now = new Date();
   const dates = [day(new Date(now - 864e5)), day(now), day(new Date(+now + 864e5))];
-  const show = (title, body, tag) => self.registration.showNotification(title, { body, tag, icon: 'icons/icon-192.png', badge: 'icons/icon-192.png', data: { url: self.registration.scope } });
+  const crest = id => `https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/${id}.png&h=192&w=192`;
+  const show = (title, body, tag) => self.registration.showNotification(title, { body, tag, icon: crest(s.fav), badge: 'icons/badge-96.png', data: { url: self.registration.scope } });
   for (const d of dates) {
     let data;
     try { data = await (await fetch(`https://site.api.espn.com/apis/site/v2/sports/soccer/esp.1/scoreboard?dates=${d}`)).json(); } catch { continue; }
@@ -92,12 +94,12 @@ async function backgroundCheck() {
       const st = c.status?.type || {};
       if (st.state === 'pre' && s.reminder && mins > 0 && mins <= Math.max(s.reminder, 180) && !s.sent[`rem-${ev.id}`]) {
         s.sent[`rem-${ev.id}`] = Date.now();
-        await show(`⏰ ${label}`, `Anpfiff heute um ${new Date(kick).toLocaleTimeString('de-AT', { hour: '2-digit', minute: '2-digit' })} Uhr`, `rem-${ev.id}`);
+        await show(`Gleich geht's los: ${label}`,`Anpfiff heute um ${new Date(kick).toLocaleTimeString('de-AT', { hour: '2-digit', minute: '2-digit' })} Uhr`, `rem-${ev.id}`);
       }
       if (st.completed && s.final && !s.sent[`ft-${ev.id}`] && Date.now() - kick < 24 * 3600e3) {
         s.sent[`ft-${ev.id}`] = Date.now();
         const my = H.team.id === s.fav ? +H.score : +A.score, ot = H.team.id === s.fav ? +A.score : +H.score;
-        await show(`${my > ot ? '🎉 Sieg' : my === ot ? '🤝 Unentschieden' : '😞 Niederlage'}: ${H.team.shortDisplayName} ${H.score}:${A.score} ${A.team.shortDisplayName}`, 'Endstand', `ft-${ev.id}`);
+        await show(`${my > ot ? 'Sieg' : my === ot ? 'Unentschieden' : 'Niederlage'}:${H.team.shortDisplayName} ${H.score}:${A.score} ${A.team.shortDisplayName}`, 'Endstand', `ft-${ev.id}`);
       }
     }
   }

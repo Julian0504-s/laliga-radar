@@ -1,4 +1,4 @@
-# LaLiga Radar ⚽
+# LaLiga Radar
 
 Die spanische Liga live, als installierbare Web-App (PWA).
 
@@ -19,3 +19,5 @@ Inoffiziell – nicht mit LaLiga oder ESPN verbunden.
 ```bash
 python -m http.server 8767
 ```
+
+Icons: [Tabler Icons](https://tabler.io/icons) (MIT), als SVG eingebettet.

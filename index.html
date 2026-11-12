@@ -245,6 +245,28 @@
   .squad .st { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
   .list-matches .match { grid-template-columns: 1fr auto 1fr; }
   .err { color: var(--loss); font-size: 13px; padding: 10px 2px; }
+  /* Icons: Tabler Icons (MIT), inlined as an SVG sprite */
+  svg.i { width: 1.15em; height: 1.15em; vertical-align: -0.2em; flex: none; }
+  svg.i.sm { width: .95em; height: .95em; vertical-align: -0.12em; }
+  svg.i.goal { color: var(--text); }
+  svg.i.sub { color: var(--win); }
+  svg.i.inj { color: var(--loss); }
+  svg.i.ok { color: var(--win); }
+  svg.i.star-on { color: #e8a400; }
+  .booking { display: inline-block; width: .62em; height: .88em; border-radius: 2px; vertical-align: -0.1em; transform: rotate(8deg); box-shadow: 0 0 0 1px rgba(0,0,0,.12); }
+  .booking.y { background: #f5c400; } .booking.r { background: #d6202f; }
+  .tag-sm { font-size: 11px; color: var(--muted); margin-left: 2px; }
+  .brand .mark svg.i { width: 22px; height: 22px; }
+  nav.tabs button .ic { display: inline-flex; }
+  nav.tabs button .ic svg.i { width: 18px; height: 18px; }
+  nav.tabs button[aria-selected="true"] .ic { color: var(--accent); }
+  @media (max-width: 700px) { nav.tabs button .ic svg.i { width: 22px; height: 22px; } }
+  .round-nav button, .icon-btn { display: inline-grid; place-items: center; }
+  .icon-btn[hidden] { display: none; }
+  .round-nav button svg.i, .icon-btn svg.i { width: 18px; height: 18px; }
+  .fav-btn svg.i { vertical-align: -0.22em; }
+  h2 svg.i { color: var(--text-2); margin-right: 2px; }
+  .note-box svg.i { color: var(--text-2); }
 
   /* Club view */
   .picker { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 8px; }
@@ -299,10 +321,34 @@
 </style>
 </head>
 <body>
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="i-player-play-filled" viewBox="0 0 24 24"><g fill="currentColor"><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" /></g></symbol>
+  <symbol id="i-star-filled" viewBox="0 0 24 24"><g fill="currentColor"><path d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z" /></g></symbol>
+  <symbol id="i-arrow-left" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></g></symbol>
+  <symbol id="i-arrows-exchange" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10h14l-4 -4" /><path d="M17 14h-14l4 4" /></g></symbol>
+  <symbol id="i-ball-football" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 7l4.76 3.45l-1.76 5.55h-6l-1.76 -5.55l4.76 -3.45" /><path d="M12 7v-4m3 13l2.5 3m-.74 -8.55l3.74 -1.45m-11.44 7.05l-2.56 2.95m.74 -8.55l-3.74 -1.45" /></g></symbol>
+  <symbol id="i-bell-ringing" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 5a2 2 0 0 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6" /><path d="M9 17v1a3 3 0 0 0 6 0v-1" /><path d="M21 6.727a11.05 11.05 0 0 0 -2.794 -3.727" /><path d="M3 6.727a11.05 11.05 0 0 1 2.792 -3.727" /></g></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6" /><path d="M9 17v1a3 3 0 0 0 6 0v-1" /></g></symbol>
+  <symbol id="i-calendar-event" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2l0 -12" /><path d="M16 3l0 4" /><path d="M8 3l0 4" /><path d="M4 11l16 0" /><path d="M8 15h2v2h-2l0 -2" /></g></symbol>
+  <symbol id="i-chart-bar" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -6" /><path d="M15 9a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -10" /><path d="M9 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -14" /><path d="M4 20h14" /></g></symbol>
+  <symbol id="i-chevron-left" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6l6 6" /></g></symbol>
+  <symbol id="i-chevron-right" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6l-6 6" /></g></symbol>
+  <symbol id="i-circle-check" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M9 12l2 2l4 -4" /></g></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M12 7v5l3 3" /></g></symbol>
+  <symbol id="i-external-link" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" /><path d="M11 13l9 -9" /><path d="M15 4h5v5" /></g></symbol>
+  <symbol id="i-first-aid-kit" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 8v-2a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v2" /><path d="M4 10a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2l0 -8" /><path d="M10 14h4" /><path d="M12 12v4" /></g></symbol>
+  <symbol id="i-info-circle" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M12 9h.01" /><path d="M11 12h1v4h1" /></g></symbol>
+  <symbol id="i-news" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 6h3a1 1 0 0 1 1 1v11a2 2 0 0 1 -4 0v-13a1 1 0 0 0 -1 -1h-10a1 1 0 0 0 -1 1v12a3 3 0 0 0 3 3h11" /><path d="M8 8l4 0" /><path d="M8 12l4 0" /><path d="M8 16l4 0" /></g></symbol>
+  <symbol id="i-player-play" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4v16l13 -8l-13 -8" /></g></symbol>
+  <symbol id="i-shield-half" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3" /><path d="M12 3v18" /></g></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873l-6.158 -3.245" /></g></symbol>
+  <symbol id="i-trophy" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21l8 0" /><path d="M12 17l0 4" /><path d="M7 4l10 0" /><path d="M17 4v8a5 5 0 0 1 -10 0v-8" /><path d="M3 9a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M17 9a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /></g></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></g></symbol>
+</svg>
 <header class="top">
   <div class="wrap">
     <div class="brand">
-      <div class="mark" aria-hidden="true">⚽</div>
+      <div class="mark" aria-hidden="true"><svg class="i" aria-hidden="true"><use href="#i-ball-football"/></svg></div>
       <div><h1>LaLiga Radar</h1><div class="sub">Spanische Liga · live · inoffiziell</div></div>
       <div class="upd" id="upd">Lade …</div>
     </div>
@@ -312,20 +358,20 @@
 
 <nav class="tabs" aria-label="Bereiche">
   <div class="wrap" role="tablist">
-    <button role="tab" data-view="matches" aria-selected="true"><span class="ic">📅</span>Spiele</button>
-    <button role="tab" data-view="club" aria-selected="false"><span class="ic">⭐</span>Verein</button>
-    <button role="tab" data-view="table" aria-selected="false"><span class="ic">🏆</span>Tabelle</button>
-    <button role="tab" data-view="stats" aria-selected="false"><span class="ic">📊</span>Statistik</button>
-    <button role="tab" data-view="news" aria-selected="false"><span class="ic">📰</span>News</button>
+    <button role="tab" data-view="matches" aria-selected="true"><span class="ic"><svg class="i" aria-hidden="true"><use href="#i-calendar-event"/></svg></span>Spiele</button>
+    <button role="tab" data-view="club" aria-selected="false"><span class="ic"><svg class="i" aria-hidden="true"><use href="#i-star"/></svg></span>Verein</button>
+    <button role="tab" data-view="table" aria-selected="false"><span class="ic"><svg class="i" aria-hidden="true"><use href="#i-trophy"/></svg></span>Tabelle</button>
+    <button role="tab" data-view="stats" aria-selected="false"><span class="ic"><svg class="i" aria-hidden="true"><use href="#i-chart-bar"/></svg></span>Statistik</button>
+    <button role="tab" data-view="news" aria-selected="false"><span class="ic"><svg class="i" aria-hidden="true"><use href="#i-news"/></svg></span>News</button>
   </div>
 </nav>
 
 <main class="wrap">
   <section class="view" id="view-matches">
     <div class="round-nav">
-      <button id="r-prev" aria-label="Vorheriger Spieltag">‹</button>
+      <button id="r-prev" aria-label="Vorheriger Spieltag"><svg class="i" aria-hidden="true"><use href="#i-chevron-left"/></svg></button>
       <div class="lbl"><b id="r-title">Spieltag</b><span id="r-dates"></span></div>
-      <button id="r-next" aria-label="Nächster Spieltag">›</button>
+      <button id="r-next" aria-label="Nächster Spieltag"><svg class="i" aria-hidden="true"><use href="#i-chevron-right"/></svg></button>
     </div>
     <div id="matches"><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div></div>
   </section>
@@ -377,9 +423,9 @@
 <div id="overlay"></div>
 <div id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-ttl">
   <div class="sheet-top">
-    <button class="icon-btn" id="sheet-back" aria-label="Zurück" hidden>←</button>
+    <button class="icon-btn" id="sheet-back" aria-label="Zurück" hidden><svg class="i" aria-hidden="true"><use href="#i-arrow-left"/></svg></button>
     <div class="ttl" id="sheet-ttl"></div>
-    <button class="icon-btn close" id="sheet-close" aria-label="Schließen">×</button>
+    <button class="icon-btn close" id="sheet-close" aria-label="Schließen"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></button>
   </div>
   <div class="sheet-body" id="sheet-body"></div>
 </div>
@@ -393,6 +439,8 @@
   const $ = id => document.getElementById(id);
   const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const ic = (n, cls = '') => `<svg class="i${cls ? ' ' + cls : ''}" aria-hidden="true"><use href="#i-${n}"/></svg>`;
+  const favLabel = on => on ? `${ic('star-filled', 'star-on')} Mein Team` : `${ic('star')} Als Mein Team`;
   const fmt = (n, d = 0) => Number(n).toLocaleString('de-AT', { maximumFractionDigits: d, minimumFractionDigits: d });
   const store = {
     get(k) { try { return JSON.parse(localStorage.getItem(k)); } catch { return null; } },
@@ -643,7 +691,7 @@
 
   function renderRound() {
     const r = S.rounds[S.round];
-    if (!r) { $('matches').innerHTML = '<div class="err">Keine Spiele gefunden.</div>'; return; }
+    if (!r) { $('r-prev').disabled = $('r-next').disabled = true; $('matches').innerHTML = '<div class="err">Keine Spiele gefunden.</div>'; return; }
     $('r-title').textContent = `Spieltag ${r.n}`;
     $('r-dates').textContent = dayKey(r.from) === dayKey(r.to) ? dateLong(r.from) : `${dateShort(r.from)} – ${dateShort(r.to)}`;
     $('r-prev').disabled = S.round <= 0; $('r-next').disabled = S.round >= S.rounds.length - 1;
@@ -867,7 +915,7 @@
     openSheet(t.name, `
       <div class="team-head"><img src="${logo(id, 128)}" alt=""><div><h2>${esc(t.name)}</h2>
         <div class="muted">${st ? `Platz ${st.rank} · ${st.pts} Punkte · ${st.gf}:${st.ga} Tore` : ''}</div></div>
-        <button class="fav-btn" id="fav-btn" aria-pressed="${isFav}">${isFav ? '★ Mein Team' : '☆ Als Mein Team'}</button></div>
+        <button class="fav-btn" id="fav-btn" aria-pressed="${isFav}">${favLabel(isFav)}</button></div>
       <h3>Form</h3><div>${formHtml(form(id, 6))}</div>
       <div class="tiles" style="margin-top:12px">
         ${home ? `<div class="tile"><div class="k">Heim</div><div class="v">${home.pts} P.</div><div class="d">${home.w}S ${home.d}U ${home.l}N · ${home.gf}:${home.ga} · Platz ${home.rank}</div></div>` : ''}
@@ -880,7 +928,7 @@
     $('fav-btn').addEventListener('click', () => {
       setFav(S.fav === id ? null : id);
       const on = S.fav === id;
-      $('fav-btn').setAttribute('aria-pressed', on); $('fav-btn').textContent = on ? '★ Mein Team' : '☆ Als Mein Team';
+      $('fav-btn').setAttribute('aria-pressed', on); $('fav-btn').innerHTML = favLabel(on);
     });
     try {
       const d = await getJSON(`${SITE}/teams/${id}/roster`);
@@ -892,7 +940,7 @@
         return `<h3 style="margin-top:12px">${label}</h3><div class="squad">${ps.sort((a, b) => (+a.jersey || 99) - (+b.jersey || 99)).map(p => {
           const apps = stat(p, 'appearances'), goals = stat(p, 'totalGoals');
           return `<div><span class="no">${esc(p.jersey || '')}</span>${p.flag?.href ? `<img src="${esc(p.flag.href)}" alt="${esc(p.citizenship || '')}" title="${esc(p.citizenship || '')}">` : '<span></span>'}
-            <span class="nm">${esc(p.displayName)}${p.injuries?.length ? ' 🩹' : ''}</span><span class="st">${apps ? `${apps} Sp.${goals ? ` · ${goals} ⚽` : ''}` : (p.age ? p.age + ' J.' : '')}</span></div>`;
+            <span class="nm">${esc(p.displayName)}${p.injuries?.length ? ' ' + ic('first-aid-kit', 'inj sm') : ''}</span><span class="st">${apps ? `${apps} Sp.${goals ? ` · ${goals} ${ic('ball-football', 'sm')}` : ''}` : (p.age ? p.age + ' J.' : '')}</span></div>`;
         }).join('')}</div>`;
       }).join('');
       if ($('squad')) $('squad').innerHTML = html || '<div class="muted">Kein Kader verfügbar.</div>';
@@ -969,7 +1017,7 @@
     // Events (goals, cards, substitutions)
     const evs = (d.keyEvents || []).filter(e => /goal|card|substitution|penalty/i.test(e.type?.text || '') && !/missed|saved/i.test(e.type?.text || '') || /penalty - scored/i.test(e.type?.text || ''));
     if (evs.length) {
-      const icon = t => /own goal/i.test(t) ? '⚽ <small>(ET)</small>' : /goal|penalty - scored/i.test(t) ? (/penalty/i.test(t) ? '⚽ <small>(EM)</small>' : '⚽') : /red/i.test(t) ? '🟥' : /yellow/i.test(t) ? '🟨' : /substitution/i.test(t) ? '🔁' : '•';
+      const icon = t => /own goal/i.test(t) ? `${ic('ball-football', 'goal')}<span class="tag-sm">ET</span>` : /goal|penalty - scored/i.test(t) ? `${ic('ball-football', 'goal')}${/penalty/i.test(t) ? '<span class="tag-sm">EM</span>' : ''}` : /red/i.test(t) ? '<span class="booking r" title="Rote Karte"></span>' : /yellow/i.test(t) ? '<span class="booking y" title="Gelbe Karte"></span>' : /substitution/i.test(t) ? ic('arrows-exchange', 'sub') : '•';
       html += `<h3>Spielverlauf</h3><ul class="events">${evs.map(e => {
         const t = e.type?.text || ''; const isHome = e.team?.id === H.team.id;
         const ps = (e.participants || []).map(p => p.athlete?.displayName).filter(Boolean);
@@ -1005,7 +1053,7 @@
         ${pitchHalf(rA, 'away', true)}
         <div class="pitch-lbl">${esc(A.team.shortDisplayName || A.team.displayName)} · ${esc(rA.formation || '')}</div>
       </div>
-      <div class="subs">${[rH, rA].map(r => `<div><b>Bank ${esc(r.team?.shortDisplayName || '')}</b></div>${(r.roster || []).filter(p => !p.starter).map(p => `<div>${esc(p.jersey || '')} ${esc(p.athlete?.displayName)}${p.subbedIn ? ' 🔁' : ''}</div>`).join('')}`).join('')}</div>`;
+      <div class="subs">${[rH, rA].map(r => `<div><b>Bank ${esc(r.team?.shortDisplayName || '')}</b></div>${(r.roster || []).filter(p => !p.starter).map(p => `<div>${esc(p.jersey || '')} ${esc(p.athlete?.displayName)}${p.subbedIn ? ' ' + ic('arrows-exchange', 'sub sm') : ''}</div>`).join('')}`).join('')}</div>`;
     }
 
     // Pre-match: form and table position of both teams
@@ -1018,7 +1066,7 @@
       if (h2h.length) html += `<h3>Diese Saison</h3><div class="list-matches">${h2h.map(x => matchRow(x, { showDate: true })).join('')}</div>`;
     }
     const news = (d.news?.articles || []).slice(0, 3);
-    if (news.length) html += `<h3>Berichte</h3>${news.map(a => `<div style="padding:4px 0"><a href="${esc(a.links?.web?.href || '#')}" target="_blank" rel="noopener">${esc(a.headline)} ↗</a></div>`).join('')}`;
+    if (news.length) html += `<h3>Berichte</h3>${news.map(a => `<div style="padding:4px 0"><a href="${esc(a.links?.web?.href || '#')}" target="_blank" rel="noopener">${esc(a.headline)} ${ic('external-link', 'sm')}</a></div>`).join('')}`;
     $('sheet-body').innerHTML = html;
   }
 
@@ -1188,15 +1236,15 @@
     const top = (ex.roster || []).map(p => ({ p, g: stat(p, 'totalGoals'), a: stat(p, 'goalAssists'), apps: stat(p, 'appearances') }))
       .filter(r => r.g || r.a).sort((a, b) => b.g - a.g || b.a - a.a).slice(0, 8);
     $('club-scorers').innerHTML = top.map((r, i) => `<li><span class="r">${i + 1}</span><span class="r" style="text-align:center">${esc(r.p.jersey || '')}</span>
-      <span class="n">${esc(r.p.displayName)}<small>${r.apps} Spiele · ${r.a} Vorlagen</small></span><span class="v">${r.g} ⚽</span></li>`).join('') || '<li class="muted">Noch keine Tore.</li>';
+      <span class="n">${esc(r.p.displayName)}<small>${r.apps} Spiele · ${r.a} Vorlagen</small></span><span class="v">${r.g} ${ic('ball-football', 'sm')}</span></li>`).join('') || '<li class="muted">Noch keine Tore.</li>';
     const inj = (ex.roster || []).filter(p => p.injuries?.length);
     $('club-injuries').innerHTML = inj.length ? `<div class="squad">${inj.map(p => {
       const i = p.injuries[0]; const det = [i.type?.description || i.details?.type, i.status].filter(Boolean).join(' · ');
-      return `<div><span class="no">${esc(p.jersey || '')}</span><span>🩹</span><span class="nm">${esc(p.displayName)}</span><span class="st">${esc(det || 'verletzt')}</span></div>`; }).join('')}</div>`
-      : '<div class="muted" style="padding:6px 0">Keine gemeldeten Ausfälle. ✅</div>';
+      return `<div><span class="no">${esc(p.jersey || '')}</span>${ic('first-aid-kit', 'inj')}<span class="nm">${esc(p.displayName)}</span><span class="st">${esc(det || 'verletzt')}</span></div>`; }).join('')}</div>`
+      : `<div class="muted" style="padding:6px 0">${ic('circle-check', 'ok')} Keine gemeldeten Ausfälle.</div>`;
     $('club-news').innerHTML = (ex.news || []).map(a => `<a href="${esc(a.links?.web?.href || a.links?.mobile?.href || '#')}" target="_blank" rel="noopener">
       ${a.images?.[0]?.url ? `<img src="${esc(a.images[0].url)}" alt="" loading="lazy">` : ''}
-      <div class="tx"><b>${a.type === 'Media' ? '▶ ' : ''}${esc(a.headline)}</b><small>${new Date(a.published).toLocaleDateString('de-AT', { day: 'numeric', month: 'short' })}</small></div></a>`).join('') || '<div class="muted">Keine Artikel.</div>';
+      <div class="tx"><b>${a.type === 'Media' ? ic('player-play-filled', 'sm') + ' ' : ''}${esc(a.headline)}</b><small>${new Date(a.published).toLocaleDateString('de-AT', { day: 'numeric', month: 'short' })}</small></div></a>`).join('') || '<div class="muted">Keine Artikel.</div>';
   }
 
   function drawPointsChart(id) {
@@ -1240,10 +1288,10 @@
   const markSent = k => { sent[k] = Date.now(); for (const [kk, t] of Object.entries(sent)) if (Date.now() - t > 14 * 864e5) delete sent[kk]; store.set('laliga-sent', sent); };
   const canNotify = () => 'Notification' in window && 'serviceWorker' in navigator;
 
-  async function notify(title, body, tag) {
+  async function notify(title, body, tag, teamId = S.fav) {
     if (!notif.on || !canNotify() || Notification.permission !== 'granted') return;
     const reg = await navigator.serviceWorker.getRegistration();
-    const opts = { body, tag, renotify: true, icon: 'icons/icon-192.png', badge: 'icons/icon-192.png', data: { url: location.href.split('#')[0] } };
+    const opts = { body, tag, renotify: true, icon: teamId ? logo(teamId, 192, true) : 'icons/icon-192.png', badge: 'icons/badge-96.png', data: { url: location.href.split('#')[0] } };
     if (reg) reg.showNotification(title, opts); else try { new Notification(title, opts); } catch { /* Android needs the SW */ }
   }
 
@@ -1270,10 +1318,10 @@
 
   function renderNotifCard() {
     const el = $('notif-card'); if (!el) return;
-    if (!canNotify()) { el.innerHTML = '<h2>🔔 Benachrichtigungen</h2><div class="note-box">Dieser Browser unterstützt keine Benachrichtigungen.</div>'; return; }
+    if (!canNotify()) { el.innerHTML = `<h2>${ic('bell')} Benachrichtigungen</h2><div class="note-box">Dieser Browser unterstützt keine Benachrichtigungen.</div>`; return; }
     const perm = Notification.permission;
     const sw = (k, label, sub) => `<label class="setting"><span class="lbl">${label}${sub ? `<small>${sub}</small>` : ''}</span><input type="checkbox" class="switch" data-nk="${k}" ${notif[k] ? 'checked' : ''} ${notif.on ? '' : 'disabled'}></label>`;
-    el.innerHTML = `<div class="row-head"><h2>🔔 Benachrichtigungen</h2>
+    el.innerHTML = `<div class="row-head"><h2>${ic('bell')} Benachrichtigungen</h2>
         <span class="right">${perm === 'denied' ? '<span class="muted" style="font-size:12px">im Browser blockiert</span>' : `<input type="checkbox" class="switch" id="notif-on" ${notif.on && perm === 'granted' ? 'checked' : ''} aria-label="Benachrichtigungen ein/aus">`}</span></div>
       ${perm === 'denied' ? '<div class="note-box">Benachrichtigungen sind für diese Seite blockiert. Erlaube sie in den Website-Einstellungen von Chrome (Schloss-Symbol neben der Adresse).</div>' : ''}
       <label class="setting"><span class="lbl">Erinnerung vor Anpfiff</span>
@@ -1285,18 +1333,18 @@
       ${sw('cards', 'Rote Karten')}
       ${sw('final', 'Endergebnis')}
       <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"><button class="btn" id="notif-test" ${notif.on ? '' : 'disabled'}>Test-Benachrichtigung</button></div>
-      <div class="note-box">ℹ️ Live-Meldungen kommen zuverlässig, solange die App offen ist oder kürzlich im Hintergrund lief. Ist sie ganz geschlossen, weckt Chrome die installierte App nur gelegentlich auf (für Erinnerung und Endergebnis). Für Tor-Meldungen in Echtzeit bei geschlossener App bräuchte es einen kleinen Server.</div>`;
+      <div class="note-box">${ic('info-circle', 'sm')} Live-Meldungen kommen zuverlässig, solange die App offen ist oder kürzlich im Hintergrund lief. Ist sie ganz geschlossen, weckt Chrome die installierte App nur gelegentlich auf (für Erinnerung und Endergebnis). Für Tor-Meldungen in Echtzeit bei geschlossener App bräuchte es einen kleinen Server.</div>`;
     $('notif-on')?.addEventListener('change', async e => {
       if (e.target.checked) {
         const p = await Notification.requestPermission();
         notif.on = p === 'granted';
-        if (notif.on) { await registerPeriodic(); notify(`🔔 ${teamName(S.fav)}: Benachrichtigungen aktiv`, 'Du bekommst Erinnerungen, Tore und Ergebnisse deines Vereins.', 'welcome'); }
+        if (notif.on) { await registerPeriodic(); notify(`${teamName(S.fav)}: Benachrichtigungen aktiv`, 'Du bekommst Erinnerungen, Tore und Ergebnisse deines Vereins.', 'welcome'); }
       } else notif.on = false;
       store.set(N_KEY, notif); syncSwSettings(); renderNotifCard();
     });
     el.querySelectorAll('[data-nk]').forEach(c => c.addEventListener('change', () => { notif[c.dataset.nk] = c.checked; store.set(N_KEY, notif); syncSwSettings(); }));
     $('notif-rem')?.addEventListener('change', e => { notif.reminder = +e.target.value; store.set(N_KEY, notif); syncSwSettings(); });
-    $('notif-test')?.addEventListener('click', () => notify(`⚽ TOR für ${teamName(S.fav)}!`, `So sieht eine Tor-Meldung aus: Spieler (23') · Stand 1:0`, 'test'));
+    $('notif-test')?.addEventListener('click', () => notify(`Tor für ${teamName(S.fav)}!`, `So sieht eine Tor-Meldung aus: Spieler 23' · Stand 1:0`, 'test'));
   }
 
   // Checks the club's next/live match and fires notifications. Called every 30 s by refresh().
@@ -1310,7 +1358,7 @@
       const mins = (next.date - now) / 60e3;
       if (mins <= notif.reminder && mins > 0 && !sent[`rem-${next.id}`]) {
         markSent(`rem-${next.id}`);
-        notify(`⏰ ${label(next)}`, `Anpfiff ${mins < 90 ? `in ${Math.round(mins)} Min.` : `${dateLong(next.date)}`} um ${timeStr(next.date)} Uhr${next.venue ? ' · ' + next.venue : ''}`, `rem-${next.id}`);
+        notify(`Gleich geht's los: ${label(next)}`, `Anpfiff ${mins < 90 ? `in ${Math.round(mins)} Min.` : `${dateLong(next.date)}`} um ${timeStr(next.date)} Uhr${next.venue ? ' · ' + next.venue : ''}`, `rem-${next.id}`);
       }
     }
     // A live match, or one that finished in the last 3 hours and hasn't had its final-score message yet.
@@ -1325,8 +1373,8 @@
     const evKey = e => `ev-${m.id}-${e.id || [e.clock?.displayValue, e.type?.text, e.participants?.[0]?.athlete?.id].join('|')}`;
     // First look at this match in this browser: don't replay old events, just remember them.
     if (!sent[`seen-${m.id}`]) { markSent(`seen-${m.id}`); for (const e of evs) sent[evKey(e)] = now; store.set('laliga-sent', sent); if (type.state === 'in') markSent(`ko-${m.id}`); }
-    if (notif.kickoff && type.state === 'in' && !sent[`ko-${m.id}`]) { markSent(`ko-${m.id}`); notify(`▶️ Anpfiff: ${label(m)}`, 'Das Spiel läuft!', `ko-${m.id}`); }
-    if (notif.kickoff && type.name === 'STATUS_HALFTIME' && !sent[`ht-${m.id}`]) { markSent(`ht-${m.id}`); notify(`⏸️ Halbzeit`, score, `ht-${m.id}`); }
+    if (notif.kickoff && type.state === 'in' && !sent[`ko-${m.id}`]) { markSent(`ko-${m.id}`); notify(`Anpfiff: ${label(m)}`, 'Das Spiel läuft!', `ko-${m.id}`); }
+    if (notif.kickoff && type.name === 'STATUS_HALFTIME' && !sent[`ht-${m.id}`]) { markSent(`ht-${m.id}`); notify(`Halbzeit`, score, `ht-${m.id}`); }
     for (const e of evs) {
       const k = evKey(e); if (sent[k]) continue;
       markSent(k);
@@ -1334,16 +1382,16 @@
       const forUs = e.team?.id === S.fav;
       if (notif.goals && (/goal|penalty - scored/i.test(t)) && !/missed|saved|disallowed/i.test(t)) {
         const kind = /own goal/i.test(t) ? ' (Eigentor)' : /penalty/i.test(t) ? ' (Elfmeter)' : '';
-        notify(forUs ? `⚽ TOR für ${teamName(S.fav)}!` : `⚽ Gegentor – ${teamName(e.team?.id)}`, `${who}${kind} ${min} · ${score}`, k);
+        notify(forUs ? `Tor für ${teamName(S.fav)}!` : `Gegentor – ${teamName(e.team?.id)} trifft`, `${who}${kind} ${min} · ${score}`, k, e.team?.id || S.fav);
       } else if (notif.cards && /red card/i.test(t)) {
-        notify(`🟥 Rote Karte${forUs ? ` für ${teamName(S.fav)}` : ` – ${teamName(e.team?.id)}`}`, `${who} ${min} · ${score}`, k);
+        notify(`Rote Karte${forUs ? ` für ${teamName(S.fav)}` : ` – ${teamName(e.team?.id)}`}`, `${who} ${min} · ${score}`, k, e.team?.id || S.fav);
       }
     }
     if (type.completed && !sent[`ft-${m.id}`]) {
       markSent(`ft-${m.id}`);
       if (notif.final) {
         const r = resultFor({ ...m, hs: +H.score, as: +A.score }, S.fav);
-        notify(`${r === 'W' ? '🎉 Sieg' : r === 'D' ? '🤝 Unentschieden' : '😞 Niederlage'}: ${score}`, `Endstand${m.round ? ` · Spieltag ${m.round}` : ''}`, `ft-${m.id}`);
+        notify(`${r === 'W' ? 'Sieg' : r === 'D' ? 'Unentschieden' : 'Niederlage'}: ${score}`, `Endstand${m.round ? ` · Spieltag ${m.round}` : ''}`, `ft-${m.id}`);
       }
     }
     syncSwSettings();
