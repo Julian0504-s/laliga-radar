@@ -6,7 +6,8 @@ Die spanische Liga live, als installierbare Web-App (PWA).
 - **Spieldetails**: Spielverlauf (Tore, Karten, Wechsel), Statistik-Vergleich, Aufstellungen auf dem Spielfeld, Bank
 - **Tabelle**: Gesamt / Heim / Auswärts, Form der letzten 5 Spiele, Europapokal- und Abstiegszonen
 - **Teams**: Form, Heim-/Auswärtsbilanz, nächste Spiele, letzte Ergebnisse, Kader mit Einsätzen und Toren
-- **Mein Team**: Lieblingsteam markieren – Countdown zum nächsten Spiel, Hervorhebung überall
+- **Mein Verein**: eigener Bereich mit Vereinsfarben, nächstem Spiel (Countdown), Saisonzahlen, Restprogramm mit Schwierigkeit, Punkteverlauf vs. Tabellenführer und Platz 4, Torschützen, Ausfällen und Vereins-News
+- **Benachrichtigungen**: Erinnerung vor Anpfiff, Anpfiff/Halbzeit, Tore mit Torschütze, Rote Karten, Endergebnis (live, solange die App läuft; im Hintergrund gelegentlich per Periodic Background Sync)
 - **Statistik**: Tabellenverlauf je Spieltag, Torjäger, Vorlagen, Tore pro Spieltag, Liga-Kennzahlen
 - **News**: aktuelle Artikel (Englisch)
 

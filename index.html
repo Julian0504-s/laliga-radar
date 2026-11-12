@@ -245,6 +245,56 @@
   .squad .st { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
   .list-matches .match { grid-template-columns: 1fr auto 1fr; }
   .err { color: var(--loss); font-size: 13px; padding: 10px 2px; }
+
+  /* Club view */
+  .picker { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 8px; }
+  .picker button { border: 1px solid var(--border); background: var(--surface); border-radius: 12px; padding: 12px 6px; cursor: pointer; display: grid; justify-items: center; gap: 6px; font-size: 12.5px; }
+  .picker button:hover { background: var(--wash); }
+  .picker img { width: 40px; height: 40px; }
+  .club-hero { border-radius: 16px; padding: 16px; color: #fff; position: relative; overflow: hidden;
+    background: linear-gradient(135deg, var(--c1, #333) 0%, var(--c2, #111) 100%); }
+  .club-hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.35)); pointer-events: none; }
+  .club-hero > * { position: relative; z-index: 1; }
+  .club-hero .top { display: flex; align-items: center; gap: 14px; }
+  .club-hero .crest { width: 72px; height: 72px; border-radius: 50%; background: rgba(255,255,255,.92); display: grid; place-items: center; flex: none; }
+  .club-hero .crest img { width: 54px; height: 54px; }
+  .club-hero h2 { font-size: 22px; margin: 0; text-shadow: 0 1px 3px rgba(0,0,0,.4); }
+  .club-hero .sub { opacity: .9; font-size: 13px; text-shadow: 0 1px 2px rgba(0,0,0,.4); }
+  .club-hero .chg { margin-left: auto; border: 1px solid rgba(255,255,255,.5); background: rgba(0,0,0,.2); color: #fff; border-radius: 9px; padding: 6px 10px; cursor: pointer; font-size: 12px; }
+  .club-hero .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 14px; }
+  .club-hero .kpis div { background: rgba(0,0,0,.28); border-radius: 10px; padding: 8px 10px; }
+  .club-hero .kpis b { display: block; font-size: 20px; }
+  .club-hero .kpis span { font-size: 11px; opacity: .9; }
+  @media (max-width: 480px) { .club-hero .kpis { grid-template-columns: repeat(2, 1fr); } }
+  .next { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 10px; text-align: center; }
+  .next .tm { display: grid; justify-items: center; gap: 4px; font-size: 13px; cursor: pointer; }
+  .next .tm img { width: 48px; height: 48px; }
+  .next .tm small { color: var(--muted); }
+  .next .when b { display: block; font-size: 22px; font-variant-numeric: tabular-nums; }
+  .next .when span { color: var(--muted); font-size: 12px; }
+  .next-meta { text-align: center; color: var(--text-2); font-size: 12.5px; margin-top: 10px; }
+  .setting { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--grid); font-size: 14px; }
+  .setting:last-child { border-bottom: 0; }
+  .setting .lbl { flex: 1; }
+  .setting .lbl small { display: block; color: var(--muted); font-size: 12px; }
+  .switch { appearance: none; -webkit-appearance: none; width: 42px; height: 24px; border-radius: 12px; background: var(--axis); position: relative; cursor: pointer; flex: none; transition: background .15s; margin: 0; }
+  .switch::after { content: ''; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: #fff; transition: transform .15s; box-shadow: 0 1px 2px rgba(0,0,0,.3); }
+  .switch:checked { background: var(--win); }
+  .switch:checked::after { transform: translateX(18px); }
+  .switch:disabled, select:disabled, .btn:disabled { opacity: .4; cursor: not-allowed; }
+  .btn { border: 1px solid var(--border); background: var(--surface); border-radius: 10px; padding: 8px 14px; cursor: pointer; font-size: 13.5px; }
+  .btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 600; }
+  .note-box { background: var(--wash); border-radius: 10px; padding: 10px 12px; font-size: 12.5px; color: var(--text-2); margin-top: 10px; }
+  .diff { display: inline-block; font-size: 11px; border-radius: 6px; padding: 1px 7px; border: 1px solid currentColor; white-space: nowrap; }
+  .diff.hard { color: var(--loss); } .diff.mid { color: var(--s4); } .diff.easy { color: var(--win); }
+  .fixture { display: grid; grid-template-columns: 54px 24px 1fr auto; gap: 10px; align-items: center; padding: 8px 2px; border-bottom: 1px solid var(--grid); font-size: 14px; cursor: pointer; }
+  .fixture:last-child { border-bottom: 0; }
+  .fixture .d { color: var(--muted); font-size: 12px; line-height: 1.25; }
+  .fixture .o small { color: var(--muted); display: block; font-size: 12px; }
+  .res-strip { display: flex; flex-wrap: wrap; gap: 4px; }
+  .res-strip button { border: 0; padding: 0; background: none; cursor: pointer; }
+  .res-strip .form i { width: 26px; height: 26px; font-size: 11px; }
+  .live-box { border: 1px solid var(--live); }
   footer { color: var(--muted); font-size: 12px; padding: 8px 0 28px; }
 </style>
 </head>
@@ -263,6 +313,7 @@
 <nav class="tabs" aria-label="Bereiche">
   <div class="wrap" role="tablist">
     <button role="tab" data-view="matches" aria-selected="true"><span class="ic">📅</span>Spiele</button>
+    <button role="tab" data-view="club" aria-selected="false"><span class="ic">⭐</span>Verein</button>
     <button role="tab" data-view="table" aria-selected="false"><span class="ic">🏆</span>Tabelle</button>
     <button role="tab" data-view="stats" aria-selected="false"><span class="ic">📊</span>Statistik</button>
     <button role="tab" data-view="news" aria-selected="false"><span class="ic">📰</span>News</button>
@@ -278,6 +329,8 @@
     </div>
     <div id="matches"><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div></div>
   </section>
+
+  <section class="view" id="view-club" hidden><div id="club"></div></section>
 
   <section class="view" id="view-table" hidden>
     <div class="card">
@@ -345,8 +398,9 @@
     get(k) { try { return JSON.parse(localStorage.getItem(k)); } catch { return null; } },
     set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch { /* full or blocked */ } },
   };
-  const logo = (id, s = 64) => `https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/${id}.png&h=${s}&w=${s}`;
   const darkMQ = matchMedia('(prefers-color-scheme: dark)');
+  // ESPN has dark-background variants of the crests (e.g. Betis' dark green would vanish on a dark page).
+  const logo = (id, s = 64, onLight = false) => `https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/${darkMQ.matches && !onLight ? '500-dark' : '500'}/${id}.png&h=${s}&w=${s}`;
   async function getJSON(url) {
     for (let i = 0; i < 3; i++) {
       try { const r = await fetch(url); if (!r.ok) throw new Error(r.status); return await r.json(); }
@@ -824,10 +878,9 @@
       <h3>Kader</h3><div id="squad"><div class="skeleton"></div></div>`, push);
     $('sheet').dataset.cur = JSON.stringify({ kind: 'team', id });
     $('fav-btn').addEventListener('click', () => {
-      S.fav = S.fav === id ? null : id; store.set('laliga-fav', S.fav);
+      setFav(S.fav === id ? null : id);
       const on = S.fav === id;
       $('fav-btn').setAttribute('aria-pressed', on); $('fav-btn').textContent = on ? '★ Mein Team' : '☆ Als Mein Team';
-      renderAll();
     });
     try {
       const d = await getJSON(`${SITE}/teams/${id}/roster`);
@@ -979,8 +1032,7 @@
     const last = ms.filter(m => m.done).at(-1);
     const st = S.standings.find(s => s.id === S.fav);
     const opp = m => m.home === S.fav ? `vs. ${teamName(m.away)}` : `@ ${teamName(m.home)}`;
-    el.hidden = false;
-    el.dataset.team = S.fav;
+    el.hidden = view === 'club'; // the club page already shows all of this
     el.innerHTML = `<img src="${logo(S.fav, 80)}" alt=""><div><div class="k">Mein Team${st ? ` · Platz ${st.rank}` : ''}</div><div class="v">${esc(teamFull(S.fav))}</div>
       <div class="k">${last ? `Zuletzt: ${resultFor(last, S.fav) === 'W' ? 'Sieg' : resultFor(last, S.fav) === 'D' ? 'Remis' : 'Niederlage'} ${last.hs}:${last.as} ${opp(last)}` : ''}</div></div>
       <div class="cd">${next ? (live ? `<b style="color:var(--live)"><span class="live-dot"></span>Live ${live.hs}:${live.as}</b><br>${esc(opp(live))}` : `<b>${opp(next)}</b><br><span id="fav-cd" data-at="${next.date}"></span>`) : ''}</div>`;
@@ -993,7 +1045,309 @@
     el.textContent = s === 0 ? 'jetzt' : d ? `in ${d} ${d === 1 ? 'Tag' : 'Tagen'}, ${h} Std.` : `in ${h} Std. ${m} Min.`;
   }
   setInterval(tickFav, 30000);
-  $('myteam').addEventListener('keydown', e => { if (e.key === 'Enter') openTeam(S.fav); });
+  $('myteam').addEventListener('click', () => showView('club'));
+  $('myteam').addEventListener('keydown', e => { if (e.key === 'Enter') showView('club'); });
+
+  // ===================== Favourite club =====================
+  function setFav(id) {
+    S.fav = id; store.set('laliga-fav', id);
+    S.clubExtra = null;
+    syncSwSettings();
+    renderAll();
+  }
+
+  // Extra club data (colours, stadium, squad, news), loaded once per club and session.
+  async function loadClubExtra(id) {
+    if (S.clubExtra?.id === id) return S.clubExtra;
+    const x = { id, colors: store.get(`laliga-colors-${id}`), roster: null, news: null };
+    S.clubExtra = x;
+    const jobs = [
+      getJSON(`${SITE}/teams/${id}/roster`).then(d => { x.roster = d.athletes || []; }).catch(() => { x.roster = []; }),
+      getJSON(`${SITE}/news?team=${id}&limit=8`).then(d => { x.news = d.articles || []; }).catch(() => { x.news = []; }),
+    ];
+    if (!x.colors) jobs.push(getJSON(`https://sports.core.api.espn.com/v2/sports/soccer/leagues/esp.1/teams/${id}?lang=en`)
+      .then(d => { x.colors = { c1: d.color, c2: d.alternateColor, venue: d.venue?.fullName, city: d.venue?.address?.city }; store.set(`laliga-colors-${id}`, x.colors); })
+      .catch(() => { x.colors = {}; }));
+    await Promise.all(jobs);
+    return x;
+  }
+
+  // Club colour pairs from ESPN are sometimes white/white or very light; keep the hero readable.
+  function heroColors(c) {
+    const lum = h => { const n = parseInt(String(h || '333333').replace('#', ''), 16); const r = n >> 16 & 255, g = n >> 8 & 255, b = n & 255; return (0.299 * r + 0.587 * g + 0.114 * b) / 255; };
+    let c1 = '#' + (c?.c1 || '333333'), c2 = '#' + (c?.c2 || '111111');
+    if (lum(c1) > 0.8 && lum(c2) <= 0.8) [c1, c2] = [c2, c1];
+    if (lum(c1) > 0.8) c1 = '#444444';
+    if (lum(c2) > 0.8) c2 = '#1a1a1a';
+    return [c1, c2];
+  }
+
+  function streak(id) {
+    const f = form(id, 38).reverse(); if (!f.length) return '';
+    const first = f[0].r; let n = 0; for (const x of f) { if (x.r === first) n++; else break; }
+    // Unbeaten run is more interesting than "1 win".
+    let unb = 0; for (const x of f) { if (x.r !== 'L') unb++; else break; }
+    if (unb >= 3 && first !== 'L') return `Seit ${unb} Spielen ungeschlagen`;
+    const word = { W: ['Sieg', 'Siege'], D: ['Remis', 'Remis'], L: ['Niederlage', 'Niederlagen'] }[first];
+    return n === 1 ? `Zuletzt: ${word[0]}` : `${n} ${word[1]} in Folge`;
+  }
+
+  function difficulty(oppId) {
+    const r = S.standings.find(s => s.id === oppId)?.rank || 10;
+    return r <= 5 ? ['hard', 'schwer'] : r <= 13 ? ['mid', 'mittel'] : ['easy', 'machbar'];
+  }
+
+  let pointsChart = null;
+  async function renderClub() {
+    const el = $('club');
+    if (!S.standings.length) { el.innerHTML = '<div class="skeleton"></div>'; return; }
+    if (!S.fav || !S.teams.has(S.fav)) {
+      el.innerHTML = `<div class="card"><h2>Wähle deinen Verein</h2><p class="hint">Dein Verein wird überall hervorgehoben, du bekommst eine eigene Seite mit allen Infos und auf Wunsch Benachrichtigungen.</p>
+        <div class="picker">${S.standings.slice().sort((a, b) => teamName(a.id).localeCompare(teamName(b.id))).map(s => `<button data-setfav="${s.id}"><img src="${logo(s.id, 80)}" alt="">${esc(teamName(s.id))}</button>`).join('')}</div></div>`;
+      return;
+    }
+    const id = S.fav;
+    const st = S.standings.find(s => s.id === id);
+    const ms = [...S.matches.values()].filter(m => m.home === id || m.away === id).sort((a, b) => a.date - b.date);
+    const played = ms.filter(m => m.done), upcoming = ms.filter(m => !m.done);
+    const live = ms.find(m => m.state === 'in');
+    const next = live || upcoming[0];
+    const gf = played.reduce((s, m) => s + (m.home === id ? m.hs : m.as), 0), ga = played.reduce((s, m) => s + (m.home === id ? m.as : m.hs), 0);
+    const clean = played.filter(m => (m.home === id ? m.as : m.hs) === 0).length;
+    const margin = m => (m.home === id ? m.hs - m.as : m.as - m.hs);
+    const bigWin = played.filter(m => margin(m) > 0).sort((a, b) => margin(b) - margin(a) || (b.hs + b.as) - (a.hs + a.as))[0];
+    const home = computeTable(finished(), 'home').find(r => r.id === id), away = computeTable(finished(), 'away').find(r => r.id === id);
+    const x = S.clubExtra?.id === id ? S.clubExtra : { colors: store.get(`laliga-colors-${id}`) };
+    const [c1, c2] = heroColors(x.colors);
+    const opp = m => m.home === id ? m.away : m.home;
+    const ppg = st && st.gp ? st.pts / st.gp : 0;
+
+    let nextHtml = '';
+    if (next) {
+      const o = opp(next), os = S.standings.find(s => s.id === o);
+      const isLive = next.state === 'in';
+      nextHtml = `<div class="card ${isLive ? 'live-box' : ''}" style="margin-top:12px">
+        <div class="row-head" style="margin-bottom:12px"><h2>${isLive ? '<span class="live-dot"></span>Live' : 'Nächstes Spiel'}</h2><span class="right muted" style="font-size:12px">${next.round ? `Spieltag ${next.round}` : ''}</span></div>
+        <div class="next" data-match="${next.id}" style="cursor:pointer">
+          <div class="tm"><img src="${logo(next.home, 96)}" alt=""><b>${esc(teamName(next.home))}</b><small>${S.standings.find(s => s.id === next.home)?.rank || ''}. Platz</small></div>
+          <div class="when">${isLive ? `<b>${next.hs ?? 0} : ${next.as ?? 0}</b><span style="color:var(--live)">${esc(next.clock)}</span>` : `<b>${timeStr(next.date)}</b><span>${dateLong(next.date)}</span><br><span id="club-cd" data-at="${next.date}"></span>`}</div>
+          <div class="tm"><img src="${logo(next.away, 96)}" alt=""><b>${esc(teamName(next.away))}</b><small>${S.standings.find(s => s.id === next.away)?.rank || ''}. Platz</small></div>
+        </div>
+        <div class="next-meta">${next.home === id ? 'Heimspiel' : 'Auswärtsspiel'}${next.venue ? ' · ' + esc(next.venue) : ''}${os ? ` · Gegner-Form ${formHtml(form(o))}` : ''}</div>
+      </div>`;
+    }
+
+    el.innerHTML = `
+      <div class="club-hero" style="--c1:${c1};--c2:${c2}">
+        <div class="top"><div class="crest"><img src="${logo(id, 112, true)}" alt=""></div>
+          <div><h2>${esc(teamFull(id))}</h2><div class="sub">${x.colors?.venue ? esc(x.colors.venue) + (x.colors.city ? ' · ' + esc(x.colors.city) : '') : ''}</div><div class="sub">${esc(streak(id))}</div></div>
+          <button class="chg" id="club-change">Wechseln</button></div>
+        <div class="kpis">
+          <div><b>${st ? st.rank + '.' : '–'}</b><span>Tabellenplatz</span></div>
+          <div><b>${st ? st.pts : '–'}</b><span>Punkte · ${fmt(ppg, 2)}/Spiel</span></div>
+          <div><b>${gf}:${ga}</b><span>Tore</span></div>
+          <div><b>${clean}</b><span>Zu-Null-Spiele</span></div>
+        </div>
+      </div>
+      ${nextHtml}
+      <div class="card" style="margin-top:12px" id="notif-card"></div>
+      <div class="grid2" style="margin-top:12px">
+        <div class="card"><h2>Saison in Zahlen</h2>
+          <div class="tiles" style="margin-top:10px">
+            <div class="tile"><div class="k">Heim</div><div class="v">${home ? home.pts : 0} P.</div><div class="d">${home ? `${home.w}S ${home.d}U ${home.l}N · ${home.gf}:${home.ga}` : ''}</div></div>
+            <div class="tile"><div class="k">Auswärts</div><div class="v">${away ? away.pts : 0} P.</div><div class="d">${away ? `${away.w}S ${away.d}U ${away.l}N · ${away.gf}:${away.ga}` : ''}</div></div>
+            <div class="tile"><div class="k">Tore pro Spiel</div><div class="v">${fmt(played.length ? gf / played.length : 0, 1)}</div><div class="d">Gegentore ${fmt(played.length ? ga / played.length : 0, 1)}</div></div>
+            ${bigWin ? `<div class="tile" data-match="${bigWin.id}" style="cursor:pointer"><div class="k">Höchster Sieg</div><div class="v">${bigWin.hs}:${bigWin.as}</div><div class="d">${esc(teamName(bigWin.home))} – ${esc(teamName(bigWin.away))}</div></div>` : ''}
+          </div>
+          <h3 style="font-size:13px;color:var(--text-2);margin:14px 0 6px">Alle Ergebnisse</h3>
+          <div class="res-strip">${form(id, 38).map(f => `<button data-match="${f.m.id}" title="${esc(teamName(f.m.home))} ${f.m.hs}:${f.m.as} ${esc(teamName(f.m.away))}">${formHtml([f])}</button>`).join('')}</div>
+        </div>
+        <div class="card"><h2>Restprogramm</h2><p class="hint">Die nächsten Gegner, eingestuft nach ihrem Tabellenplatz.</p>
+          ${upcoming.filter(m => m.state !== 'in').slice(0, 6).map(m => { const o = opp(m), [cls, txt] = difficulty(o), os = S.standings.find(s => s.id === o);
+            return `<div class="fixture" data-match="${m.id}"><div class="d">${dateShort(m.date)}<br>${m.home === id ? 'Heim' : 'Ausw.'}</div><img class="logo" src="${logo(o, 48)}" alt="">
+              <div class="o">${esc(teamName(o))}<small>${os ? os.rank + '. Platz · ' + os.pts + ' P.' : ''}</small></div><span class="diff ${cls}">${txt}</span></div>`; }).join('') || '<div class="muted">Keine weiteren Spiele.</div>'}
+        </div>
+      </div>
+      <div class="card" style="margin-top:12px"><h2>Punkteverlauf</h2><p class="hint">Gesammelte Punkte nach jedem Spieltag – im Vergleich mit dem Tabellenführer und Platz 4 (Champions League).</p>
+        <div class="chart-box" style="height:280px"><canvas id="points-chart" role="img" aria-label="Liniendiagramm: Punkte je Spieltag"></canvas></div></div>
+      <div class="grid2" style="margin-top:12px">
+        <div class="card"><h2>Torschützen & Vorlagen</h2><ol class="leaders" id="club-scorers"><div class="skeleton"></div></ol></div>
+        <div class="card"><h2>Verletzt / Ausfälle</h2><div id="club-injuries"><div class="skeleton"></div></div></div>
+      </div>
+      <div class="card" style="margin-top:12px"><h2>News & Highlights</h2><p class="hint">Von ESPN, auf Englisch.</p><div class="news" id="club-news"></div></div>`;
+
+    $('club-change').addEventListener('click', () => { S.fav = null; store.set('laliga-fav', null); syncSwSettings(); renderAll(); });
+    renderNotifCard();
+    drawPointsChart(id);
+    tickClub();
+
+    const ex = await loadClubExtra(id);
+    if (S.fav !== id || view !== 'club') return;
+    if (!x.colors && ex.colors) { renderClub(); return; } // re-render once with the club colours
+    const stat = (p, n) => p.statistics?.splits?.categories?.flatMap(c => c.stats).find(s => s.name === n)?.value ?? 0;
+    const top = (ex.roster || []).map(p => ({ p, g: stat(p, 'totalGoals'), a: stat(p, 'goalAssists'), apps: stat(p, 'appearances') }))
+      .filter(r => r.g || r.a).sort((a, b) => b.g - a.g || b.a - a.a).slice(0, 8);
+    $('club-scorers').innerHTML = top.map((r, i) => `<li><span class="r">${i + 1}</span><span class="r" style="text-align:center">${esc(r.p.jersey || '')}</span>
+      <span class="n">${esc(r.p.displayName)}<small>${r.apps} Spiele · ${r.a} Vorlagen</small></span><span class="v">${r.g} ⚽</span></li>`).join('') || '<li class="muted">Noch keine Tore.</li>';
+    const inj = (ex.roster || []).filter(p => p.injuries?.length);
+    $('club-injuries').innerHTML = inj.length ? `<div class="squad">${inj.map(p => {
+      const i = p.injuries[0]; const det = [i.type?.description || i.details?.type, i.status].filter(Boolean).join(' · ');
+      return `<div><span class="no">${esc(p.jersey || '')}</span><span>🩹</span><span class="nm">${esc(p.displayName)}</span><span class="st">${esc(det || 'verletzt')}</span></div>`; }).join('')}</div>`
+      : '<div class="muted" style="padding:6px 0">Keine gemeldeten Ausfälle. ✅</div>';
+    $('club-news').innerHTML = (ex.news || []).map(a => `<a href="${esc(a.links?.web?.href || a.links?.mobile?.href || '#')}" target="_blank" rel="noopener">
+      ${a.images?.[0]?.url ? `<img src="${esc(a.images[0].url)}" alt="" loading="lazy">` : ''}
+      <div class="tx"><b>${a.type === 'Media' ? '▶ ' : ''}${esc(a.headline)}</b><small>${new Date(a.published).toLocaleDateString('de-AT', { day: 'numeric', month: 'short' })}</small></div></a>`).join('') || '<div class="muted">Keine Artikel.</div>';
+  }
+
+  function drawPointsChart(id) {
+    const hist = [], fin = finished();
+    for (const r of S.rounds.filter(roundDone)) {
+      const tbl = computeTable(fin.filter(m => m.round <= r.n));
+      hist.push({ n: r.n, me: tbl.find(t => t.id === id)?.pts ?? null, lead: tbl[0]?.pts ?? null, fourth: tbl[3]?.pts ?? null });
+    }
+    const o = baseOpts();
+    o.scales.y.beginAtZero = true;
+    o.plugins.legend = { display: true, position: 'top', align: 'end', labels: { color: css('--text-2'), usePointStyle: true, pointStyle: 'circle', boxWidth: 8, boxHeight: 8 } };
+    o.plugins.tooltip.callbacks = { title: it => `Spieltag ${it[0].label}`, label: it => ` ${it.dataset.label}: ${it.raw} Punkte` };
+    const ds = (label, key, color, extra = {}) => ({ label, data: hist.map(h => h[key]), borderColor: color, backgroundColor: color, borderWidth: 2, pointRadius: 0, pointHoverRadius: 5, tension: 0.15, ...extra });
+    if (pointsChart) pointsChart.destroy();
+    pointsChart = new Chart($('points-chart'), { type: 'line', data: { labels: hist.map(h => h.n), datasets: [
+      ds(teamName(id), 'me', css('--s1'), { borderWidth: 3, pointRadius: 2.5 }),
+      ds('Tabellenführer', 'lead', css('--s2'), { borderDash: [5, 4] }),
+      ds('Platz 4', 'fourth', css('--s3'), { borderDash: [2, 3] }),
+    ] }, options: o });
+  }
+
+  function tickClub() {
+    const el = $('club-cd'); if (!el) return;
+    const s = Math.max(0, Math.round((+el.dataset.at - Date.now()) / 1000));
+    const d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60), sec = s % 60;
+    el.textContent = s === 0 ? 'Anpfiff!' : `noch ${d ? d + ' T ' : ''}${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
+  }
+  setInterval(tickClub, 1000);
+
+  document.addEventListener('click', e => {
+    const b = e.target.closest('[data-setfav]'); if (b) setFav(b.dataset.setfav);
+  });
+
+  // ===================== Notifications =====================
+  // Works while the app is open or was recently in the background (the page polls every 30 s).
+  // When the app is closed, the browser may wake the service worker now and then (periodic sync)
+  // for a reminder or the final score – real-time goal pushes would need a small server.
+  const N_KEY = 'laliga-notify';
+  const notif = Object.assign({ on: false, reminder: 60, kickoff: true, goals: true, cards: true, final: true }, store.get(N_KEY) || {});
+  const sent = store.get('laliga-sent') || {};
+  const markSent = k => { sent[k] = Date.now(); for (const [kk, t] of Object.entries(sent)) if (Date.now() - t > 14 * 864e5) delete sent[kk]; store.set('laliga-sent', sent); };
+  const canNotify = () => 'Notification' in window && 'serviceWorker' in navigator;
+
+  async function notify(title, body, tag) {
+    if (!notif.on || !canNotify() || Notification.permission !== 'granted') return;
+    const reg = await navigator.serviceWorker.getRegistration();
+    const opts = { body, tag, renotify: true, icon: 'icons/icon-192.png', badge: 'icons/icon-192.png', data: { url: location.href.split('#')[0] } };
+    if (reg) reg.showNotification(title, opts); else try { new Notification(title, opts); } catch { /* Android needs the SW */ }
+  }
+
+  // Let the service worker know the club and settings (it can't read localStorage).
+  async function syncSwSettings() {
+    try {
+      const c = await caches.open('laliga-settings');
+      // Merge what the service worker already sent in the background, so nothing is announced twice.
+      const old = await c.match('settings').then(r => r && r.json()).catch(() => null);
+      if (old?.sent) { Object.assign(sent, old.sent); store.set('laliga-sent', sent); }
+      await c.put('settings', new Response(JSON.stringify({ fav: S.fav, ...notif, sent })));
+    } catch { /* caches unavailable */ }
+  }
+  async function registerPeriodic() {
+    try {
+      const reg = await navigator.serviceWorker.ready;
+      if (!('periodicSync' in reg)) return false;
+      const p = await navigator.permissions.query({ name: 'periodic-background-sync' });
+      if (p.state !== 'granted') return false;
+      await reg.periodicSync.register('laliga-check', { minInterval: 30 * 60e3 });
+      return true;
+    } catch { return false; }
+  }
+
+  function renderNotifCard() {
+    const el = $('notif-card'); if (!el) return;
+    if (!canNotify()) { el.innerHTML = '<h2>🔔 Benachrichtigungen</h2><div class="note-box">Dieser Browser unterstützt keine Benachrichtigungen.</div>'; return; }
+    const perm = Notification.permission;
+    const sw = (k, label, sub) => `<label class="setting"><span class="lbl">${label}${sub ? `<small>${sub}</small>` : ''}</span><input type="checkbox" class="switch" data-nk="${k}" ${notif[k] ? 'checked' : ''} ${notif.on ? '' : 'disabled'}></label>`;
+    el.innerHTML = `<div class="row-head"><h2>🔔 Benachrichtigungen</h2>
+        <span class="right">${perm === 'denied' ? '<span class="muted" style="font-size:12px">im Browser blockiert</span>' : `<input type="checkbox" class="switch" id="notif-on" ${notif.on && perm === 'granted' ? 'checked' : ''} aria-label="Benachrichtigungen ein/aus">`}</span></div>
+      ${perm === 'denied' ? '<div class="note-box">Benachrichtigungen sind für diese Seite blockiert. Erlaube sie in den Website-Einstellungen von Chrome (Schloss-Symbol neben der Adresse).</div>' : ''}
+      <label class="setting"><span class="lbl">Erinnerung vor Anpfiff</span>
+        <select id="notif-rem" ${notif.on ? '' : 'disabled'} style="font:inherit;font-size:13px;color:var(--text);background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:4px 6px">
+          ${[[0, 'aus'], [15, '15 Min.'], [30, '30 Min.'], [60, '1 Std.'], [180, '3 Std.'], [1440, '1 Tag']].map(([v, t]) => `<option value="${v}" ${notif.reminder === v ? 'selected' : ''}>${t}</option>`).join('')}
+        </select></label>
+      ${sw('kickoff', 'Anpfiff & Halbzeit')}
+      ${sw('goals', 'Tore', 'mit Torschütze, Minute und Spielstand')}
+      ${sw('cards', 'Rote Karten')}
+      ${sw('final', 'Endergebnis')}
+      <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"><button class="btn" id="notif-test" ${notif.on ? '' : 'disabled'}>Test-Benachrichtigung</button></div>
+      <div class="note-box">ℹ️ Live-Meldungen kommen zuverlässig, solange die App offen ist oder kürzlich im Hintergrund lief. Ist sie ganz geschlossen, weckt Chrome die installierte App nur gelegentlich auf (für Erinnerung und Endergebnis). Für Tor-Meldungen in Echtzeit bei geschlossener App bräuchte es einen kleinen Server.</div>`;
+    $('notif-on')?.addEventListener('change', async e => {
+      if (e.target.checked) {
+        const p = await Notification.requestPermission();
+        notif.on = p === 'granted';
+        if (notif.on) { await registerPeriodic(); notify(`🔔 ${teamName(S.fav)}: Benachrichtigungen aktiv`, 'Du bekommst Erinnerungen, Tore und Ergebnisse deines Vereins.', 'welcome'); }
+      } else notif.on = false;
+      store.set(N_KEY, notif); syncSwSettings(); renderNotifCard();
+    });
+    el.querySelectorAll('[data-nk]').forEach(c => c.addEventListener('change', () => { notif[c.dataset.nk] = c.checked; store.set(N_KEY, notif); syncSwSettings(); }));
+    $('notif-rem')?.addEventListener('change', e => { notif.reminder = +e.target.value; store.set(N_KEY, notif); syncSwSettings(); });
+    $('notif-test')?.addEventListener('click', () => notify(`⚽ TOR für ${teamName(S.fav)}!`, `So sieht eine Tor-Meldung aus: Spieler (23') · Stand 1:0`, 'test'));
+  }
+
+  // Checks the club's next/live match and fires notifications. Called every 30 s by refresh().
+  async function checkNotifications() {
+    if (!notif.on || !S.fav || !canNotify() || Notification.permission !== 'granted') return;
+    const now = Date.now();
+    const ms = [...S.matches.values()].filter(m => m.home === S.fav || m.away === S.fav).sort((a, b) => a.date - b.date);
+    const next = ms.find(m => m.state === 'pre' && m.date > now - 10 * 60e3);
+    const label = m => `${teamName(m.home)} – ${teamName(m.away)}`;
+    if (next && notif.reminder) {
+      const mins = (next.date - now) / 60e3;
+      if (mins <= notif.reminder && mins > 0 && !sent[`rem-${next.id}`]) {
+        markSent(`rem-${next.id}`);
+        notify(`⏰ ${label(next)}`, `Anpfiff ${mins < 90 ? `in ${Math.round(mins)} Min.` : `${dateLong(next.date)}`} um ${timeStr(next.date)} Uhr${next.venue ? ' · ' + next.venue : ''}`, `rem-${next.id}`);
+      }
+    }
+    // A live match, or one that finished in the last 3 hours and hasn't had its final-score message yet.
+    const m = ms.find(x => x.state === 'in') || ms.find(x => x.done && now - x.date < 4 * 3600e3 && !sent[`ft-${x.id}`]);
+    if (!m) return;
+    let d; try { d = await getJSON(`${SITE}/summary?event=${m.id}`); } catch { return; }
+    const comp = d.header?.competitions?.[0]; if (!comp) return;
+    const H = comp.competitors.find(c => c.homeAway === 'home'), A = comp.competitors.find(c => c.homeAway === 'away');
+    const score = `${teamName(H.team.id)} ${H.score ?? 0}:${A.score ?? 0} ${teamName(A.team.id)}`;
+    const type = comp.status?.type || {};
+    const evs = d.keyEvents || [];
+    const evKey = e => `ev-${m.id}-${e.id || [e.clock?.displayValue, e.type?.text, e.participants?.[0]?.athlete?.id].join('|')}`;
+    // First look at this match in this browser: don't replay old events, just remember them.
+    if (!sent[`seen-${m.id}`]) { markSent(`seen-${m.id}`); for (const e of evs) sent[evKey(e)] = now; store.set('laliga-sent', sent); if (type.state === 'in') markSent(`ko-${m.id}`); }
+    if (notif.kickoff && type.state === 'in' && !sent[`ko-${m.id}`]) { markSent(`ko-${m.id}`); notify(`▶️ Anpfiff: ${label(m)}`, 'Das Spiel läuft!', `ko-${m.id}`); }
+    if (notif.kickoff && type.name === 'STATUS_HALFTIME' && !sent[`ht-${m.id}`]) { markSent(`ht-${m.id}`); notify(`⏸️ Halbzeit`, score, `ht-${m.id}`); }
+    for (const e of evs) {
+      const k = evKey(e); if (sent[k]) continue;
+      markSent(k);
+      const t = e.type?.text || '', who = e.participants?.[0]?.athlete?.displayName || '', min = e.clock?.displayValue || '';
+      const forUs = e.team?.id === S.fav;
+      if (notif.goals && (/goal|penalty - scored/i.test(t)) && !/missed|saved|disallowed/i.test(t)) {
+        const kind = /own goal/i.test(t) ? ' (Eigentor)' : /penalty/i.test(t) ? ' (Elfmeter)' : '';
+        notify(forUs ? `⚽ TOR für ${teamName(S.fav)}!` : `⚽ Gegentor – ${teamName(e.team?.id)}`, `${who}${kind} ${min} · ${score}`, k);
+      } else if (notif.cards && /red card/i.test(t)) {
+        notify(`🟥 Rote Karte${forUs ? ` für ${teamName(S.fav)}` : ` – ${teamName(e.team?.id)}`}`, `${who} ${min} · ${score}`, k);
+      }
+    }
+    if (type.completed && !sent[`ft-${m.id}`]) {
+      markSent(`ft-${m.id}`);
+      if (notif.final) {
+        const r = resultFor({ ...m, hs: +H.score, as: +A.score }, S.fav);
+        notify(`${r === 'W' ? '🎉 Sieg' : r === 'D' ? '🤝 Unentschieden' : '😞 Niederlage'}: ${score}`, `Endstand${m.round ? ` · Spieltag ${m.round}` : ''}`, `ft-${m.id}`);
+      }
+    }
+    syncSwSettings();
+  }
 
   // ===================== Tabs =====================
   let view = 'matches';
@@ -1002,6 +1356,8 @@
     document.querySelectorAll('nav.tabs [role=tab]').forEach(b => b.setAttribute('aria-selected', String(b.dataset.view === v)));
     document.querySelectorAll('section.view').forEach(s => s.hidden = s.id !== `view-${v}`);
     if (v === 'stats' && S.standings.length) { renderStats(); }
+    if (v === 'club') renderClub();
+    renderMyTeam();
     if (v === 'news') loadNews();
     try { sessionStorage.setItem('laliga-view', v); } catch { /* ignore */ }
     scrollTo({ top: 0 });
@@ -1011,6 +1367,7 @@
   function renderAll() {
     renderMyTeam(); renderRound(); renderTable();
     if (view === 'stats') renderStats();
+    if (view === 'club') renderClub();
   }
 
   // ===================== Start =====================
@@ -1023,6 +1380,7 @@
       renderAll();
       loadLeaders();
       loadOfficialRounds();
+      syncSwSettings().then(checkNotifications);
       $('upd').innerHTML = `${esc(S.season || '')}<br>Stand ${new Date().toLocaleTimeString('de-AT', { hour: '2-digit', minute: '2-digit' })}`;
     } catch (e) {
       console.error(e);
@@ -1040,10 +1398,11 @@
       if (hot) { try { await loadStandings(); } catch { /* keep old */ } }
       buildRounds(); renderAll();
     }
+    checkNotifications();
   }
   setInterval(refresh, 30000);
   document.addEventListener('visibilitychange', () => { if (!document.hidden) refresh(); });
-  darkMQ.addEventListener('change', () => { if (view === 'stats') renderStats(); });
+  darkMQ.addEventListener('change', () => { if (S.standings.length) renderAll(); });
   let rT; addEventListener('resize', () => { clearTimeout(rT); rT = setTimeout(() => { if (view === 'stats') { drawPosChart(); drawGoalsChart(); } }, 200); });
 
   try { const v = sessionStorage.getItem('laliga-view'); if (v) showView(v); } catch { /* ignore */ }

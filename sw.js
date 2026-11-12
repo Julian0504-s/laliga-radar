@@ -2,7 +2,8 @@
 // App files: network first (always fresh), cache as offline fallback.
 // Library + textures from the CDN: cache first (they are versioned and never change).
 // Live data (ESPN): never cached.
-const CACHE = 'laliga-radar-v1';
+const CACHE = 'laliga-radar-v2';
+const SETTINGS = 'laliga-settings'; // written by the page: favourite club + notification settings
 const SHELL = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png'];
 const CDN = 'https://cdnjs.cloudflare.com/';
 
@@ -13,7 +14,7 @@ self.addEventListener('install', e => {
 self.addEventListener('activate', e => {
   e.waitUntil(
     caches.keys()
-      .then(keys => Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k))))
+      .then(keys => Promise.all(keys.filter(k => k !== CACHE && k !== SETTINGS).map(k => caches.delete(k))))
       .then(() => self.clients.claim())
   );
 });
@@ -49,3 +50,56 @@ self.addEventListener('fetch', e => {
   }
   // Everything else (live APIs) goes straight to the network.
 });
+
+// Tapping a notification opens (or focuses) the app.
+self.addEventListener('notificationclick', e => {
+  e.notification.close();
+  const url = e.notification.data?.url || './';
+  e.waitUntil((async () => {
+    const wins = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
+    const win = wins.find(w => w.url.startsWith(self.registration.scope));
+    if (win) return win.focus();
+    return self.clients.openWindow(url);
+  })());
+});
+
+// Background check while the app is closed. Chrome decides how often this runs for an installed app
+// (often only every few hours), so it is good for a reminder or the final score, not for live goals.
+self.addEventListener('periodicsync', e => {
+  if (e.tag === 'laliga-check') e.waitUntil(backgroundCheck());
+});
+
+async function backgroundCheck() {
+  const store = await caches.open(SETTINGS);
+  const res = await store.match('settings');
+  if (!res) return;
+  const s = await res.json();
+  if (!s.on || !s.fav) return;
+  s.sent ||= {};
+  const day = d => d.toISOString().slice(0, 10).replace(/-/g, '');
+  const now = new Date();
+  const dates = [day(new Date(now - 864e5)), day(now), day(new Date(+now + 864e5))];
+  const show = (title, body, tag) => self.registration.showNotification(title, { body, tag, icon: 'icons/icon-192.png', badge: 'icons/icon-192.png', data: { url: self.registration.scope } });
+  for (const d of dates) {
+    let data;
+    try { data = await (await fetch(`https://site.api.espn.com/apis/site/v2/sports/soccer/esp.1/scoreboard?dates=${d}`)).json(); } catch { continue; }
+    for (const ev of data.events || []) {
+      const c = ev.competitions[0];
+      const H = c.competitors.find(x => x.homeAway === 'home'), A = c.competitors.find(x => x.homeAway === 'away');
+      if (H.team.id !== s.fav && A.team.id !== s.fav) continue;
+      const label = `${H.team.shortDisplayName} – ${A.team.shortDisplayName}`;
+      const kick = Date.parse(ev.date), mins = (kick - Date.now()) / 60e3;
+      const st = c.status?.type || {};
+      if (st.state === 'pre' && s.reminder && mins > 0 && mins <= Math.max(s.reminder, 180) && !s.sent[`rem-${ev.id}`]) {
+        s.sent[`rem-${ev.id}`] = Date.now();
+        await show(`⏰ ${label}`, `Anpfiff heute um ${new Date(kick).toLocaleTimeString('de-AT', { hour: '2-digit', minute: '2-digit' })} Uhr`, `rem-${ev.id}`);
+      }
+      if (st.completed && s.final && !s.sent[`ft-${ev.id}`] && Date.now() - kick < 24 * 3600e3) {
+        s.sent[`ft-${ev.id}`] = Date.now();
+        const my = H.team.id === s.fav ? +H.score : +A.score, ot = H.team.id === s.fav ? +A.score : +H.score;
+        await show(`${my > ot ? '🎉 Sieg' : my === ot ? '🤝 Unentschieden' : '😞 Niederlage'}: ${H.team.shortDisplayName} ${H.score}:${A.score} ${A.team.shortDisplayName}`, 'Endstand', `ft-${ev.id}`);
+      }
+    }
+  }
+  await store.put('settings', new Response(JSON.stringify(s)));
+}
